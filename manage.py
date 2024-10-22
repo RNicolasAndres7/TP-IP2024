@@ -18,5 +18,12 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+def explorador():
+
+    pass
+
+
 if __name__ == '__main__':
     main()
+
+    explorador()
