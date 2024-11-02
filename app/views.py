@@ -16,7 +16,7 @@ def home(request):
     images = []
     
     images.append(services.getAllImages())
-
+# holaa
     favourite_list = []
 
     return render(request, 'home.html', {'images': images[0], 'favourite_list': favourite_list})
