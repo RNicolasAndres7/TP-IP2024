@@ -15,11 +15,11 @@ def home(request):
    
     images = []
     
-    images.append(services.getAllImages())
+    images = images + services.getAllImages()
 
     favourite_list = []
 
-    return render(request, 'home.html', {'images': images[0], 'favourite_list': favourite_list})
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
 
 def search(request):
    
@@ -29,15 +29,15 @@ def search(request):
 
     images_search=[]
     
-    images.append(services.getAllImages())
+    images = images + services.getAllImages()  #( Lista de objetos )
 
     # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         
-        for object in images:
+        for object in images: 
 
-            if object.name in search_msg:
+            if search_msg in object.name:
                 
                 images_search.append(object)
 
