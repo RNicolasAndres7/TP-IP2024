@@ -15,7 +15,7 @@ def home(request):
    
     images = []
     
-    images.append(services.getAllImages())
+    images = images + services.getAllImages()
 
     favourite_list = []
 
