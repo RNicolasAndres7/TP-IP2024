@@ -3,7 +3,7 @@
 from app.layers.utilities.card import Card
 
 # usado cuando la info. viene de la API, para transformarla en una Card.
-def fromRequestIntoCard(object):
+def fromRequestIntoCard(object)->object:
     card = Card(
                         url=object['image'],
                         name=object['name'],

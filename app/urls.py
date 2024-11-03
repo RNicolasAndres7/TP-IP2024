@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path
+from .views import login_views
 from . import views
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from django.contrib import messages 
 
 urlpatterns = [
     path('', views.index_page, name='index-page'),
@@ -13,4 +17,5 @@ urlpatterns = [
     path('favourites/delete/', views.deleteFavourite, name='borrar-favorito'),
 
     path('exit/', views.exit, name='exit'),
+
 ]

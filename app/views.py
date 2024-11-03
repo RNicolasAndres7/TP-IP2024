@@ -1,29 +1,53 @@
 # capa de vista/presentación
 
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+from django.contrib import messages 
+
 
 def index_page(request):
+    
     return render(request, 'index.html')
 
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
+   
     images = []
+    
+    images = images + services.getAllImages()
+
     favourite_list = []
 
-    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
 
 def search(request):
-    search_msg = request.POST.get('query', '')
+   
+    search_msg = request.POST.get('query', '') # Leer la doc de esto
+
+    images = []
+
+    images_search=[]
+    
+    images = images + services.getAllImages()  #( Lista de objetos )
 
     # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
-        pass
+        
+        for object in images: 
+
+            if search_msg in object.name:
+                
+                images_search.append(object)
+
+        return render(request, 'home.html',{'images': images_search})
+    
     else:
+
         return redirect('home')
 
 
@@ -41,6 +65,19 @@ def saveFavourite(request):
 def deleteFavourite(request):
     pass
 
+def login_views(request):
+    if request.method=='POST':
+        username=request.POST['username'] 
+        password=request.POST['password']
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else: 
+            messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA")
+    return render (request,'login.html')
+
 @login_required
 def exit(request):
-    pass
+    logout(request)
+    return redirect('login')
