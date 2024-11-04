@@ -27,8 +27,8 @@ def getAllImages(input=None)->list:
 
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):
-    fav = '' # transformamos un request del template en una Card.
-    fav.user = '' # le asignamos el usuario correspondiente.
+    fav = translator.fromRequestIntoCard(request) # transformamos un request del template en una Card.
+    fav.user = request.user # le asignamos el usuario correspondiente.
 
     return repositories.saveFavourite(fav) # lo guardamos en la base.
 
@@ -39,7 +39,7 @@ def getAllFavourites(request):
     else:
         user = get_user(request)
 
-        favourite_list = [] # buscamos desde el repositories.py TODOS los favoritos del usuario (variable 'user').
+        favourite_list = repositories.getAllFavourites(request.user) # buscamos desde el repositories.py TODOS los favoritos del usuario (variable 'user').
         mapped_favourites = []
 
         for favourite in favourite_list:
