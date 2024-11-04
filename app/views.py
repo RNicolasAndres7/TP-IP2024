@@ -20,7 +20,7 @@ def home(request):
     
     images = images + services.getAllImages()
 
-    favourite_list = []
+    favourite_list =[]
 
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
 
@@ -54,17 +54,28 @@ def search(request):
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):
+
     favourite_list = services.getAllFavourites(request) # llama al servicio para obtener favoritos
+
     return render(request, 'favourites.html', { 'favourite_list': favourite_list })
+
 
 @login_required
 def saveFavourite(request):
-    services.saveFavourite(request) #llama al servicio para guardar el favorito
-    pass
+    
+    images = services.getAllImages()
+
+    favourite_list = [services.saveFavourite(request)]
+
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list}) #llama al servicio para guardar el favorito
+    
 
 @login_required
 def deleteFavourite(request):
+    
     services.deleteFavourite(request) #llama al servicio para eliminar el favorito
+    
+    
     pass
 
 def login_views(request):
@@ -78,8 +89,11 @@ def login_views(request):
         else: 
             messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA")
     return render (request,'login.html')
+    pass
 
 @login_required
 def exit(request):
     logout(request)
     return redirect('login')
+
+    pass
