@@ -20,7 +20,7 @@ def home(request):
     
     images = images + services.getAllImages()
 
-    favourite_list =[]
+    favourite_list = services.getAllFavourites(request)
 
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
 
@@ -62,12 +62,10 @@ def getAllFavouritesByUser(request):
 
 @login_required
 def saveFavourite(request):
-    
-    images = services.getAllImages()
 
-    favourite_list = [services.saveFavourite(request)]
+    services.saveFavourite(request)
 
-    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list}) #llama al servicio para guardar el favorito
+    return redirect(home) #llama al servicio para guardar el favorito
     
 
 @login_required
@@ -75,8 +73,7 @@ def deleteFavourite(request):
     
     services.deleteFavourite(request) #llama al servicio para eliminar el favorito
     
-    
-    pass
+    return redirect(getAllFavouritesByUser)
 
 def login_views(request):
     if request.method=='POST':
@@ -89,11 +86,10 @@ def login_views(request):
         else: 
             messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA")
     return render (request,'login.html')
-    pass
+
 
 @login_required
 def exit(request):
     logout(request)
     return redirect('login')
 
-    pass

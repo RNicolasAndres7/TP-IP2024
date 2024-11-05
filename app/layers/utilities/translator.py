@@ -3,20 +3,14 @@
 from app.layers.utilities.card import Card
 
 # usado cuando la info. viene de la API, para transformarla en una Card.
-def fromRequestIntoCard(request):
+def fromRequestIntoCard(object):
     # usamos request.POST.get para extraer los valores enviados por el formulario
-    url = request.POST.get('url')
-    name = request.POST.get('name')
-    status = request.POST.get('status')
-    last_location = request.POST.get('last_location')
-    first_seen = request.POST.get('first_seen')
-
     card = Card(
-        name=name,
-        url=url,
-        status=status,
-        last_location=last_location,
-        first_seen=first_seen
+        name=object['name'],
+        url=object['image'],
+        status=object['status'],
+        last_location=object['location']['name'],
+        first_seen=object['origin']['name']
     )
     return card
 # usado cuando la info. viene del template, para transformarlo en una Card antes de guardarlo en la base de datos.
@@ -34,7 +28,6 @@ def fromTemplateIntoCard(templ):
 def fromRepositoryIntoCard(repo_dict):
     card = Card(
                         id=repo_dict['id'],
-
                         url=repo_dict['url'],
                         name=repo_dict['name'],
                         status=repo_dict['status'],
