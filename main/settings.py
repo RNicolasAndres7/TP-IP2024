@@ -59,6 +59,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
+
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
@@ -120,3 +125,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # VARIABLES QUE INTEGRAN LOS REDIRECTS DE AUTH
 LOGIN_REDIRECT_URL = 'index-page'
 LOGOUT_REDIRECT_URL = 'index-page'
+
+
+### Borrar despues 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'your_account@gmail.com'
+EMAIL_HOST_PASSWORD = 'your app password'
+
+
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+]
