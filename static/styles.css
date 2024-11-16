@@ -12,6 +12,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     font-family: 'get_schwifty', 'Roboto';
+    color: #33ff9f;
 }
 
 h1.text-center {
@@ -161,7 +162,7 @@ table.table td i {
 }
 
 .pagination li.active a:hover {
-    background: #0397d6;
+    background: none;
 }
 
 .pagination li.disabled i {
