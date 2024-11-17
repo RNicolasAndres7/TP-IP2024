@@ -1,11 +1,11 @@
 # capa de vista/presentación
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect #para que pueda redireccionar la pagina cuando se desloguea o se loguea mal
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate, login
-from django.contrib import messages 
+from django.contrib.auth import logout #para que funcione desloguarse
+from django.contrib.auth import authenticate, login #agregamos para que funcione autenticarse y loguearse
+
 
 
 def index_page(request):
@@ -75,21 +75,18 @@ def deleteFavourite(request):
     
     return redirect(getAllFavouritesByUser)
 
-def login_views(request):
-    if request.method=='POST':
-        username=request.POST['username'] 
-        password=request.POST['password']
-        user=authenticate(request,username=username,password=password)
-        if user is not None:
-            login(request,user)
-            return redirect('home')
-        else: 
-            messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA")
-    return render (request,'login.html')
 
+def login_views(request):  #funciòn que sirve para autenticarse 
+    username=request.POST['username'] 
+    password=request.POST['password']
+    user=authenticate(request,username=username,password=password) # Toma el usuario y contraseña y los autentica
+    if user is not None: # si las credenciales son validas entonces devuelve el objeto usuario, si no lo son entonces vuelve a la pagina inicial y pide otra vez usuario y contraseña
+        login(request,user)
+     
 
 @login_required
-def exit(request):
-    logout(request)
-    return redirect('login')
+def exit(request): #funciòn que sirve para cerrar la sesiòn
+    logout(request) # remite a la funion de django para desloguearse
+    return redirect('login') # pedimos como retorno una redireccion a la pagina principal de inicio de sesion
+    
 
