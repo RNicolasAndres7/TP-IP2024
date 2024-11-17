@@ -128,13 +128,13 @@ LOGOUT_REDIRECT_URL = 'index-page'
 
 
 ### Borrar despues 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your_account@gmail.com'
-EMAIL_HOST_PASSWORD = 'your app password'
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'your_account@gmail.com'
+#EMAIL_HOST_PASSWORD = 'your app password'
 
 
-PASSWORD_HASHERS = [
-    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-]
+#PASSWORD_HASHERS = [
+#    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+#] CAUSANTE DEL ERROR DEL LOGIN (REVISAR) - COMENTARIO 17/11

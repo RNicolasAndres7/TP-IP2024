@@ -32,5 +32,4 @@ def registerUser(info):
 
     new_user = Register.objects.create(user = info.user, password = info.password)
 
-
     return new_user

@@ -5,9 +5,9 @@ from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
-from django.core.mail import send_mail
-from django.contrib import messages 
-from .layers.persistence import repositories
+#from django.core.mail import send_mail
+#from django.contrib import messages 
+#from .layers.persistence import repositories
 from app.forms import SubscribeForm
 from django.conf import settings
 
@@ -98,13 +98,11 @@ def login_views(request):
     
             login(request,user)
     
-            return redirect(home)
             
+            
+            #messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA") ## Corregir esto
     
-
-             #messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA") ## Corregir esto
-    
-    return render (request,'login.html')
+    return render (request,'login')
 
 
 @login_required
