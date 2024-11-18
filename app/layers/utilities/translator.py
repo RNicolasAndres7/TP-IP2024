@@ -5,12 +5,6 @@ from app.layers.utilities.card import Card
 # usado cuando la info. viene de la API, para transformarla en una Card.
 def fromRequestIntoCard(object):
     # usamos request.POST.get para extraer los valores enviados por el formulario
-   # url = request.POST.get('url')
-   # name = request.POST.get('name')
-   # status = request.POST.get('status')
-   # last_location = request.POST.get('last_location')
-   # first_seen = request.POST.get('first_seen')
-
     card = Card(
         name=object['name'],
         url=object['image'],
@@ -34,7 +28,6 @@ def fromTemplateIntoCard(templ):
 def fromRepositoryIntoCard(repo_dict):
     card = Card(
                         id=repo_dict['id'],
-
                         url=repo_dict['url'],
                         name=repo_dict['name'],
                         status=repo_dict['status'],

@@ -48,8 +48,8 @@ def getAllFavourites(request) -> list:
         
         mapped_favourites = []
 
-        for favourite in favourite_list:                                             
-
+        for favourite in favourite_list:
+        
             mapped_favourites.append(translator.fromRepositoryIntoCard(favourite))  # transformamos cada favorito en una Card, y lo almacenamos en card.
 
         return mapped_favourites

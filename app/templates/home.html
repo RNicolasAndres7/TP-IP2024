@@ -1,13 +1,15 @@
 {% extends 'header.html' %} {% block content %}
 <main>
-    <h1 class="text-center">Buscador Rick & Morty</h1>
+    <h1 class="text-center">Buscador Rick y Morty</h1>
 
     <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
         <!-- Selector de página -->
         <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
-                    <a class="page-link">⬅️</a>
+                    <a class="page-link">
+                        <img src="../static/Imagenes/Pistola_Atras.webp" alt="Flecha1" style="width: 30px; height: 30px;">
+                    </a>
                 </li>
                 <li class="page-item active" aria-current="page">
                     <a class="page-link" href="#">1</a>
@@ -17,7 +19,9 @@
                 </li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">➡️</a>
+                    <a class="page-link" href="#">
+                        <img src="../static/Imagenes/Pistola_Portal.webp"️alt="Flecha" style="width: 30px; height: 30px;">
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -27,8 +31,8 @@
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
             {% csrf_token %}
-            <input class="form-control me-2" type="search" name="query" placeholder="Escribí una palabra" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input class="form-control me-2" style="background-color: #00073e; color: #00e8ff;" type="search" name="query" placeholder="Escribí una palabra" aria-label="Search">
+            <button class="btn btn-outline-success" style="background-color: #00073e; color: #00e8ff;" type="submit">Buscar</button>
         </form>
     </div>
 
@@ -38,11 +42,11 @@
         {% else %} {% for img in images %}
         <div class="col"> 
             {% if img.status == 'Alive' %}
-            <div class="card mb-3 ms-5 border-success" style="max-width: 540px;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-success" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
             {% elif img.status == 'Dead' %}
-            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
             {% else %}
-            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
             {%endif%}
                 <div class="row g-0">
                     <div class="col-md-4">

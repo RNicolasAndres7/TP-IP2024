@@ -1,15 +1,16 @@
 # capa de vista/presentación
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect #para que pueda redireccionar la pagina cuando se desloguea o se loguea mal
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout #para que funcione desloguarse
+from django.contrib.auth import authenticate, login #agregamos para que funcione autenticarse y loguearse
+from django.contrib import messages 
 #from django.core.mail import send_mail
-#from django.contrib import messages 
 #from .layers.persistence import repositories
 from app.forms import SubscribeForm
 from django.conf import settings
+from django.contrib.auth.forms import UserCreationForm
 
 
 def index_page(request):
@@ -81,57 +82,34 @@ def deleteFavourite(request):
 
     return redirect(getAllFavouritesByUser)
     
-    
 
 
-def login_views(request):
-   
-    if request.method=='POST':
-    
-        username=request.POST['username'] 
-    
-        password=request.POST['password']
-    
-        user=authenticate(request,username=username,password=password)
-    
-        if user is not None:
-    
-            login(request,user)
-    
-            
-            
-            #messages.error(request,"USUARIO O CANTRASEÑA INCORRECTA") ## Corregir esto
-    
-    return render (request,'login')
-
+def login_views(request):  #funciòn que sirve para autenticarse 
+    username=request.POST['username'] 
+    password=request.POST['password']
+    user=authenticate(request,username=username,password=password) # Toma el usuario y contraseña y los autentica
+    if user is not None: # si las credenciales son validas entonces devuelve el objeto usuario, si no lo son entonces vuelve a la pagina inicial y pide otra vez usuario y contraseña
+        login(request,user)
+     
 
 @login_required
-def exit(request):
+def exit(request): #funciòn que sirve para cerrar la sesiòn
+    logout(request) # remite a la funion de django para desloguearse
+    return redirect('login') # pedimos como retorno una redireccion a la pagina principal de inicio de sesion
     
-    logout(request)
-    
-    return redirect('login')
 
-def subscribe(request):
+def register(request):
     
-    form = SubscribeForm()
+    if request.method == 'POST':
     
-    #if request.method == 'POST':
-    
-    #    form = SubscribeForm(request.POST)
-    
-    #    if form.is_valid():
-    
-    #        subject = 'Code Band'
-    
-    #        message = 'Sending Email through Gmail'
-    
-    #        recipient = form.cleaned_data.get('email')
-    
-    #        send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-    
-    #        messages.success(request, 'Success!')
-    
-    #        return redirect(subscribe)
-    
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            
+            form.save()
+        
+    else:
+            
+        form = UserCreationForm()
+
     return render(request, 'registration/register.html', {'form': form})
