@@ -12,16 +12,16 @@
                     </a>
                 </li>
                 <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">
-                        <img src="../static/Imagenes/Pistola_Portal.webp"️alt="Flecha" style="width: 30px; height: 30px;">
-                    </a>
+                    <a class="page-link" href="#">1</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="#">2</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">➡️</a>
+                    <a class="page-link" href="#">
+                        <img src="../static/Imagenes/Pistola_Portal.webp"️alt="Flecha" style="width: 30px; height: 30px;">
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -42,11 +42,11 @@
         {% else %} {% for img in images %}
         <div class="col"> 
             {% if img.status == 'Alive' %}
-            <div class="card mb-3 ms-5 border-success" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-success" style="max-width: 540px; background-color: #00ff0f; color: #000000;"> <!-- Acá está el cambio de color-->
             {% elif img.status == 'Dead' %}
-            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px; background-color: #ff0000; color: #000000;"> <!-- Acá está el cambio de color-->
             {% else %}
-            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px; background-color: #ffa200; color: #000000;"> <!-- Acá está el cambio de color-->
             {%endif%}
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -59,9 +59,9 @@
                             <h3 class="card-title">{{ img.name }}</h3>
                             <p class="card-text">
                                 <strong>
-                                            {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
-                                            {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
-                                            {% else %} 🟠 {{ img.status }} 
+                                            {% if img.status == 'Alive' %} {{ img.status }}
+                                            {% elif img.status == 'Dead' %} {{ img.status }}
+                                            {% else %} {{ img.status }}
                                             {% endif %}
                                 </strong>
                             </p>
