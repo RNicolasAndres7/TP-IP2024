@@ -43,6 +43,12 @@ def search(request):
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         
+        search_msg = search_msg[0].upper() + search_msg[1:len(search_msg)]
+
+        if " " in search_msg:
+
+           search_msg = search_msg[0:search_msg.index(" ")+1] + search_msg[search_msg.index(" ")+1].upper() + search_msg[search_msg.index(" ")+2:len(search_msg)]
+
         for object in images: 
 
             if search_msg in object.name:
