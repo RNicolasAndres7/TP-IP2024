@@ -105,13 +105,6 @@
         });
     }
 
-    const loadImagesButton = document.getElementById("load-images-button");
-    if (loadImagesButton) {
-        loadImagesButton.addEventListener("click", function() {
-            spinnerOverlay.style.display = "flex";
-        });
-    }
-
     window.addEventListener("load", hideSpinner);
     window.addEventListener("pageshow", hideSpinner);
 
