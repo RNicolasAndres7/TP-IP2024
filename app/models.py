@@ -19,15 +19,15 @@ class Favourite(models.Model):
     
 
 
-class Register(models.Model):
+#class Register(models.Model):
 
-    user = models.TextField(max_length=40)
+#    user = models.TextField(max_length=40)
 
-    email = models.TextField()
+#    email = models.TextField()
 
-    password = models.TextField(max_length=10) 
+#    password = models.TextField(max_length=10) 
 
-    class Meta:
+#    class Meta:
        
-        unique_together = (('user'),)
+#        unique_together = (('user'),)
 

@@ -1,6 +1,7 @@
 # capa DAO de acceso/persistencia de datos.
 
-from app.models import Favourite, Register 
+from app.models import Favourite 
+
 
 def saveFavourite(image):
     try:
@@ -28,8 +29,8 @@ def deleteFavourite(id):
         print(f"Error al eliminar el favorito: {e}")
         return False
 
-def registerUser(info):
+#def readUser(User):
 
-    new_user = Register.objects.create(user = info.user, password = info.password)
+#    info_User = 
 
-    return new_user
+#    return info_User
