@@ -44,7 +44,9 @@
                         {% endif %}
 
                 </ul>
-
+                {% if request.user.is_authenticated %}
+                    <h10 class="text-footer">Usuario: {{ user.username }}</h10>
+                {% endif %}
 
             </div>
         </div>

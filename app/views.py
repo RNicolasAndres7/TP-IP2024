@@ -91,31 +91,51 @@ def deleteFavourite(request):
 
 
 def login_views(request):  #funciòn que sirve para autenticarse 
+    
     username=request.POST['username'] 
+    
     password=request.POST['password']
+    
     user=authenticate(request,username=username,password=password) # Toma el usuario y contraseña y los autentica
+    
     if user is not None: # si las credenciales son validas entonces devuelve el objeto usuario, si no lo son entonces vuelve a la pagina inicial y pide otra vez usuario y contraseña
+    
         login(request,user)
      
 
 @login_required
 def exit(request): #funciòn que sirve para cerrar la sesiòn
+    
     logout(request) # remite a la funion de django para desloguearse
+    
     return redirect('login') # pedimos como retorno una redireccion a la pagina principal de inicio de sesion
     
 
 def register(request):
     
-    if request.method == 'POST':
+    #if request.method == 'POST':
     
-        form = UserCreationForm(request.POST)
+    form = UserCreationForm(request.POST)
 
-        if form.is_valid():
+    if form.is_valid():
             
-            form.save()
-        
+        form.save()
+
+
+        user_name=request.POST['username']
+
+        user_pwd=request.POST['password1']
+    
+        user=authenticate(request,username=user_name,password=user_pwd)
+
+        login(request,user)
+
+        return redirect('home')
+    
     else:
-            
-        form = UserCreationForm()
+
+        messages.error(request,"Error al crear usuario, intentelo de nuevo")
 
     return render(request, 'registration/register.html', {'form': form})
+
+    
