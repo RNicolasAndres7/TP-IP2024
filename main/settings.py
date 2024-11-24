@@ -59,6 +59,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
+
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
@@ -95,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -108,9 +113,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-]
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -120,3 +126,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # VARIABLES QUE INTEGRAN LOS REDIRECTS DE AUTH
 LOGIN_REDIRECT_URL = 'index-page'
 LOGOUT_REDIRECT_URL = 'index-page'
+
+
+### Borrar despues 
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'your_account@gmail.com'
+#EMAIL_HOST_PASSWORD = 'your app password'
+
+
+#PASSWORD_HASHERS = [
+#    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+#] CAUSANTE DEL ERROR DEL LOGIN (REVISAR) - COMENTARIO 17/11

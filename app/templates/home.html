@@ -1,6 +1,6 @@
-{% extends 'header.html' %} {% block content %}
+{% extends 'header.html' %} {% load static %} {% block content %}
 <main>
-    <h1 class="text-center">Buscador Rick y Morty</h1>
+    <h1 class="text-center">Buscador Rick & Morty</h1>
 
     <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
         <!-- Selector de página -->
@@ -42,11 +42,11 @@
         {% else %} {% for img in images %}
         <div class="col"> 
             {% if img.status == 'Alive' %}
-            <div class="card mb-3 ms-5 border-success" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-success" style="max-width: 540px; background-color: #00ff0f; color: #000000;"> <!-- Acá está el cambio de color-->
             {% elif img.status == 'Dead' %}
-            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-danger" style="max-width: 540px; background-color: #ff0000; color: #000000;"> <!-- Acá está el cambio de color-->
             {% else %}
-            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px; background-color: #00073e; color: #00e8ff;"> <!-- Acá está el cambio de color-->
+            <div class="card mb-3 ms-5 border-warning" style="max-width: 540px; background-color: #ffa200; color: #000000;"> <!-- Acá está el cambio de color-->
             {%endif%}
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -59,9 +59,9 @@
                             <h3 class="card-title">{{ img.name }}</h3>
                             <p class="card-text">
                                 <strong>
-                                            {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
-                                            {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
-                                            {% else %} 🟠 {{ img.status }} 
+                                            {% if img.status == 'Alive' %} {{ img.status }}
+                                            {% elif img.status == 'Dead' %} {{ img.status }}
+                                            {% else %} {{ img.status }}
                                             {% endif %}
                                 </strong>
                             </p>
@@ -91,4 +91,33 @@
         {% endfor %} {% endif %}
     </div>
 </main>
+<div id="spinner-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+    <img src="{% static 'Imagenes/spinner.gif' %}" alt="Cargando..." style="width: 100px; height: 100px;">
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const spinnerOverlay = document.getElementById("spinner-overlay");
+
+    const searchForm = document.querySelector("form[action='{% url 'buscar' %}']");
+    if (searchForm) {
+        searchForm.addEventListener("submit", function() {
+            spinnerOverlay.style.display = "flex";
+        });
+    }
+
+    window.addEventListener("load", hideSpinner);
+    window.addEventListener("pageshow", hideSpinner);
+
+    function hideSpinner() {
+        if (spinnerOverlay) {
+            spinnerOverlay.style.display = "none";
+        }
+    }
+});
+</script>
+
 {% endblock %}
+<audio controls autoplay>
+    <source src="TP-IP2024/Static/Audio/rickandmorty.mp3" type="audio/mpeg">
+    <source src="TP-IP2024/Static/Audio/rickandmorty.ogv" type="audio/ogg">
+</audio>
