@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate, login #agregamos para que funcione
 from django.contrib import messages 
 #from django.core.mail import send_mail
 #from .layers.persistence import repositories
-from app.forms import SubscribeForm
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 
@@ -96,12 +95,16 @@ def login_views(request):  #funciòn que sirve para autenticarse
     
     password=request.POST['password']
     
+
     user=authenticate(request,username=username,password=password) # Toma el usuario y contraseña y los autentica
-    
+
+
     if user is not None: # si las credenciales son validas entonces devuelve el objeto usuario, si no lo son entonces vuelve a la pagina inicial y pide otra vez usuario y contraseña
     
         login(request,user)
-     
+
+    
+   
 
 @login_required
 def exit(request): #funciòn que sirve para cerrar la sesiòn
@@ -113,29 +116,32 @@ def exit(request): #funciòn que sirve para cerrar la sesiòn
 
 def register(request):
     
-    #if request.method == 'POST':
-    
     form = UserCreationForm(request.POST)
 
-    if form.is_valid():
+    if request.method == 'POST':
+
+        if form.is_valid():
             
-        form.save()
+            form.save()
 
+            user_name=request.POST['username']
 
-        user_name=request.POST['username']
-
-        user_pwd=request.POST['password1']
+            user_pwd=request.POST['password1']
     
-        user=authenticate(request,username=user_name,password=user_pwd)
+            user=authenticate(request,username=user_name,password=user_pwd)
 
-        login(request,user)
+            login(request,user)
 
-        return redirect('home')
+            return redirect('home')
     
-    else:
+        else:
 
-        messages.error(request,"Error al crear usuario, intentelo de nuevo")
+            messages.error(request,"No se pudo crear usuario, intentelo de nuevo")
 
+            return render(request, 'registration/register.html', {'form': form})
+        
     return render(request, 'registration/register.html', {'form': form})
+
+    
 
     
