@@ -12,6 +12,9 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 
 
+
+
+
 def index_page(request):
     
     return render(request, 'index.html')
@@ -115,7 +118,7 @@ def exit(request): #funciòn que sirve para cerrar la sesiòn
     
 
 def register(request):
-    
+
     form = UserCreationForm(request.POST)
 
     if request.method == 'POST':
@@ -138,7 +141,7 @@ def register(request):
 
             messages.error(request,"No se pudo crear usuario, intentelo de nuevo")
 
-            return render(request, 'registration/register.html', {'form': form})
+            return redirect('register')
         
     return render(request, 'registration/register.html', {'form': form})
 
