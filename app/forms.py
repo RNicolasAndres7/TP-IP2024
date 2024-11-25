@@ -1,12 +1,16 @@
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from . import models 
 
 
-class SubscribeForm(forms.Form):
-   
-    email = forms.EmailField()
 
+class registerForm(UserCreationForm):
 
-class registerForm(forms.ModelForm):
+    usable_password = None
 
-    pass
+    class Meta:
+
+        model = User
+
+        fields = ["username", "password1", "password2"]
+

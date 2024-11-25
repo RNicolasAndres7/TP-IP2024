@@ -6,30 +6,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout #para que funcione desloguarse
 from django.contrib.auth import authenticate, login #agregamos para que funcione autenticarse y loguearse
 from django.contrib import messages 
-#from django.core.mail import send_mail
-#from .layers.persistence import repositories
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
-
-
-
-
+#from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 def index_page(request):
     
     return render(request, 'index.html')
 
+def members(request):
+    
+    return render(request, 'members.html')
+
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-   
-    images = []
     
-    images = images + services.getAllImages()
+    contador=1
+
+    images = services.getAllImages()
+
+    images = Paginator(images,20)
 
     favourite_list = services.getAllFavourites(request)
 
-    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
+    return render(request, 'home.html', {'images': images.page(contador), 'favourite_list': favourite_list})
 
 def search(request):
    
@@ -97,10 +99,8 @@ def login_views(request):  #funciòn que sirve para autenticarse
     username=request.POST['username'] 
     
     password=request.POST['password']
-    
 
-    user=authenticate(request,username=username,password=password) # Toma el usuario y contraseña y los autentica
-
+    user=authenticate(request,username=username,password=password)
 
     if user is not None: # si las credenciales son validas entonces devuelve el objeto usuario, si no lo son entonces vuelve a la pagina inicial y pide otra vez usuario y contraseña
     
@@ -118,7 +118,7 @@ def exit(request): #funciòn que sirve para cerrar la sesiòn
     
 
 def register(request):
-
+    
     form = UserCreationForm(request.POST)
 
     if request.method == 'POST':
@@ -141,7 +141,7 @@ def register(request):
 
             messages.error(request,"No se pudo crear usuario, intentelo de nuevo")
 
-            return redirect('register')
+            return render(request, 'registration/register.html', {'form': form})
         
     return render(request, 'registration/register.html', {'form': form})
 
