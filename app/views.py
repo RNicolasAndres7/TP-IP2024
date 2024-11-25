@@ -47,7 +47,7 @@ def search(request):
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         
-        search_msg = search_msg[0].upper() + search_msg[1:len(search_msg)]
+        search_msg = search_msg[0].upper() + search_msg[1:len(search_msg)].lower()
 
         if " " in search_msg:
 
