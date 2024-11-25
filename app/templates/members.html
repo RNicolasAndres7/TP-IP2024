@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% extends 'header.html' %} {% block content %}
 <title>Integrantes</title>
 <link rel="stylesheet" href="TP-../../../static/styles.css">
 <h1 class="text-center">Miembros del equipo</h1>
@@ -45,11 +45,7 @@ img {
 }
 
 
-.container::after, .row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+
 </style>
 
 <br><br>
@@ -97,7 +93,7 @@ img {
 
   <div class="column">
     <div class="card">
-        <img src="../static/Imagenes/nico.jpg" height="250px" width="250px" class="center">
+        <img src="../static/Imagenes/Nico.jpg" height="250px" width="250px" class="center">
             <div class="container">
                 <h2>Nicolás Ríos</h2>
             </div>
@@ -109,5 +105,5 @@ img {
 
 
 </div>
-
+{% endblock %}
 
